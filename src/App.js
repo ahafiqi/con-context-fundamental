@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import Navbar from "./components/Navbar";
+import { AppContext } from "./context/app-context";
 
 function App() {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const user = {
+      name: "John Doe",
+      avatar: "https://randomuser.me/api/portraits/men/75.jpg",
+    };
+
+    setUser(user);
+  }, []);
+
+  const AppContextValue = {
+    user,
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppContext.Provider value={AppContextValue}>
+        <Navbar />
+      </AppContext.Provider>
     </div>
   );
 }
